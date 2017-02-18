@@ -1,0 +1,43 @@
+﻿@model SecureVault.Models.Register
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "Register failed.");
+    <div>
+        <fieldset>
+            <legend>Register Form</legend>
+            <div>@Html.LabelFor(u => u.FirstName)</div>
+            <div>
+                @Html.TextBoxFor(u => u.FirstName)
+                @Html.ValidationMessageFor(u => u.FirstName)
+            </div>
+
+            <div>@Html.LabelFor(u => u.LastName)</div>
+            <div>
+                @Html.TextBoxFor(u => u.LastName)
+                @Html.ValidationMessageFor(u => u.LastName)
+            </div>
+
+            <div>@Html.LabelFor(u => u.Email)</div>
+            <div>
+                @Html.TextBoxFor(u => u.Email)
+            @Html.ValidationMessageFor(u => u.Email)
+            </div>
+
+            <br />
+            <div>@Html.LabelFor(u => u.Password)</div>
+            <div>
+                @Html.PasswordFor(u => u.Password)
+            @Html.ValidationMessageFor(u => u.Password)
+        </div>
+
+        <input type="submit" value="Register" />
+</fieldset>
+</div>
+}

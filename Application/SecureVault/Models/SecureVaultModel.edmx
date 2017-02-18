@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SecureVaultDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Keys">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="V_ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+          <Property Name="Key" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Hidden" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="DateJoined" Type="date" Nullable="false" />
+          <Property Name="EmailVerified" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vaults">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="U_ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="DateCreated" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Keys__V_ID__2D27B809">
+          <End Role="Vaults" Type="Self.Vaults" Multiplicity="1" />
+          <End Role="Keys" Type="Self.Keys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vaults">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Keys">
+              <PropertyRef Name="V_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vaults__U_ID__2E1BDC42">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Vaults" Type="Self.Vaults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vaults">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SecureVaultDataModelStoreContainer">
+          <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vaults" EntityType="Self.Vaults" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Keys__V_ID__2D27B809" Association="Self.FK__Keys__V_ID__2D27B809">
+            <End Role="Vaults" EntitySet="Vaults" />
+            <End Role="Keys" EntitySet="Keys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vaults__U_ID__2E1BDC42" Association="Self.FK__Vaults__U_ID__2E1BDC42">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Vaults" EntitySet="Vaults" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SecureVaultDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Keys">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="V_ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Key" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Hidden" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Vaults" Relationship="Self.FK__Keys__V_ID__2D27B809" FromRole="Keys" ToRole="Vaults" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateJoined" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EmailVerified" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Vaults" Relationship="Self.FK__Vaults__U_ID__2E1BDC42" FromRole="Users" ToRole="Vaults" />
+        </EntityType>
+        <EntityType Name="Vaults">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="U_ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Keys" Relationship="Self.FK__Keys__V_ID__2D27B809" FromRole="Vaults" ToRole="Keys" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Vaults__U_ID__2E1BDC42" FromRole="Vaults" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__Keys__V_ID__2D27B809">
+          <End Role="Vaults" Type="Self.Vaults" Multiplicity="1" />
+          <End Role="Keys" Type="Self.Keys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vaults">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Keys">
+              <PropertyRef Name="V_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vaults__U_ID__2E1BDC42">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Vaults" Type="Self.Vaults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vaults">
+              <PropertyRef Name="U_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SecureVaultDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Keys" EntityType="Self.Keys" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Vaults" EntityType="Self.Vaults" />
+          <AssociationSet Name="FK__Keys__V_ID__2D27B809" Association="Self.FK__Keys__V_ID__2D27B809">
+            <End Role="Vaults" EntitySet="Vaults" />
+            <End Role="Keys" EntitySet="Keys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vaults__U_ID__2E1BDC42" Association="Self.FK__Vaults__U_ID__2E1BDC42">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Vaults" EntitySet="Vaults" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SecureVaultDataModelStoreContainer" CdmEntityContainer="SecureVaultDataEntities">
+          <EntitySetMapping Name="Keys">
+            <EntityTypeMapping TypeName="SecureVaultDataModel.Keys">
+              <MappingFragment StoreEntitySet="Keys">
+                <ScalarProperty Name="V_ID" ColumnName="V_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SecureVaultDataModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
+                <ScalarProperty Name="EmailVerified" ColumnName="EmailVerified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vaults">
+            <EntityTypeMapping TypeName="SecureVaultDataModel.Vaults">
+              <MappingFragment StoreEntitySet="Vaults">
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
