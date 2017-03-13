@@ -10,13 +10,11 @@ namespace SecureVault.Models
     {
         [Required]
         [EmailAddress]
-        [StringLength(50)]
         public string Email { get; set; }
 
         [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        //https://www.youtube.com/watch?annotation_id=annotation_815470&feature=iv&src_vid=7RoJIgRcuOc&v=TNgbuE0VfXI
     }
 }

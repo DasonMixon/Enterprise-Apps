@@ -18,7 +18,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -170,10 +171,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\KeysController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\VaultsController.cs" />
+    <Compile Include="Controllers\VaultController.cs" />
+    <Compile Include="Legacy\KeysController.cs" />
+    <Compile Include="Legacy\UsersController.cs" />
+    <Compile Include="Legacy\VaultsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -211,12 +214,6 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\SB\bootstrap.min.css" />
-    <Content Include="Content\SB\font-awesome.min.css" />
-    <Content Include="Content\SB\metisMenu.min.css" />
-    <Content Include="Content\SB\morris.css" />
-    <Content Include="Content\SB\sb-admin-2.css" />
-    <Content Include="Content\SB\sb-admin-2.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -231,6 +228,9 @@
       <DependentUpon>SecureVaultModel.edmx</DependentUpon>
       <LastGenOutput>SecureVaultModel.cs</LastGenOutput>
     </Content>
+    <Content Include="SB\data\flot-data.js" />
+    <Content Include="SB\data\morris-data.js" />
+    <Content Include="SB\gulpfile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\SecureVaultModel.edmx">
@@ -240,6 +240,7 @@
     <Content Include="Models\SecureVaultModel.edmx.diagram">
       <DependentUpon>SecureVaultModel.edmx</DependentUpon>
     </Content>
+    <Content Include="SB\bower.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -248,16 +249,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\SB\bootstrap.min.js" />
-    <Content Include="Scripts\SB\jquery.min.js" />
-    <Content Include="Scripts\SB\metisMenu.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\SB\morris-data.js" />
-    <Content Include="Scripts\SB\morris.min.js" />
-    <Content Include="Scripts\SB\raphael.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\SB\sb-admin-2.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -273,27 +267,41 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Vaults\Create.cshtml" />
-    <Content Include="Views\Vaults\Delete.cshtml" />
-    <Content Include="Views\Vaults\Details.cshtml" />
-    <Content Include="Views\Vaults\Edit.cshtml" />
-    <Content Include="Views\Vaults\Index.cshtml" />
-    <Content Include="Views\Keys\Create.cshtml" />
-    <Content Include="Views\Keys\Delete.cshtml" />
-    <Content Include="Views\Keys\Details.cshtml" />
-    <Content Include="Views\Keys\Edit.cshtml" />
-    <Content Include="Views\Keys\Index.cshtml" />
-    <Content Include="Views\Users\Login.cshtml" />
-    <Content Include="Views\Users\Register.cshtml" />
-    <Content Include="Views\Users\Logout.cshtml" />
+    <Content Include="Legacy\Users\Create.cshtml" />
+    <Content Include="Legacy\Users\Delete.cshtml" />
+    <Content Include="Legacy\Users\Details.cshtml" />
+    <Content Include="Legacy\Users\Edit.cshtml" />
+    <Content Include="Legacy\Users\Index.cshtml" />
+    <Content Include="Legacy\Vaults\Create.cshtml" />
+    <Content Include="Legacy\Vaults\Delete.cshtml" />
+    <Content Include="Legacy\Vaults\Details.cshtml" />
+    <Content Include="Legacy\Vaults\Edit.cshtml" />
+    <Content Include="Legacy\Vaults\Index.cshtml" />
+    <Content Include="Legacy\Keys\Create.cshtml" />
+    <Content Include="Legacy\Keys\Delete.cshtml" />
+    <Content Include="Legacy\Keys\Details.cshtml" />
+    <Content Include="Legacy\Keys\Edit.cshtml" />
+    <Content Include="Legacy\Keys\Index.cshtml" />
+    <Content Include="Legacy\Users\Login.cshtml" />
+    <Content Include="Legacy\Users\Register.cshtml" />
+    <Content Include="Legacy\Users\Logout.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\Vaults.cshtml" />
+    <Content Include="Views\Account\Settings.cshtml" />
+    <Content Include="Views\Account\CreateVault.cshtml" />
+    <Content Include="Views\Account\VaultDetails.cshtml" />
+    <Content Include="Views\Account\EditVault.cshtml" />
+    <Content Include="Views\Account\DeleteVault.cshtml" />
+    <Content Include="Views\Vault\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="SB\dist\" />
+    <Folder Include="SB\js\" />
+    <Folder Include="SB\less\" />
+    <Folder Include="SB\vendor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
