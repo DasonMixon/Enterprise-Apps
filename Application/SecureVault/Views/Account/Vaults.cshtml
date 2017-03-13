@@ -1,0 +1,127 @@
+﻿@model IEnumerable<SecureVault.Models.Vaults>
+
+@{
+    ViewBag.Title = "Secure Vault - Vaults";
+}
+
+<style>
+    body {
+  min-height: 75rem; /* Can be removed; just added for demo purposes */
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.jumbotron {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  margin-bottom: 0;
+  background-color: #fff;
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+.album {
+  min-height: 50rem; /* Can be removed; just added for demo purposes */
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  background-color: #f7f7f7;
+}
+
+.card {
+  float: left;
+  width: 33.333%;
+  padding: .75rem;
+  margin-bottom: 2rem;
+  border: 0;
+}
+
+.card > img {
+  margin-bottom: .75rem;
+}
+
+.card-text {
+  font-size: 85%;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}
+
+</style>
+
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Vaults</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <div style="max-width:300px;margin:auto;">
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addVault">Add a new vault</button>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort: Date
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Date</a></li>
+                    <li><a href="#">Name Ascending</a></li>
+                    <li><a href="#">Name Descending</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    @foreach (var item in Model)
+        {
+        <div class="panel panel-default">
+            <a href="/Account/VaultDetails?id=@item.ID">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@item.Name</h3>
+                </div>
+            </a>
+            <div class="panel-body">
+                @item.DateCreated
+            </div>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editVault" style="border-top-left-radius:0;">Edit Vault</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default">Merge Vault</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteVaultCheck" style="border-top-right-radius:0;">Delete Vault</button>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("EditVault", item)
+        @Html.Partial("DeleteVault", item)
+    }
+
+    @Html.Partial("CreateVault", new SecureVault.Models.Vaults())
+</div>

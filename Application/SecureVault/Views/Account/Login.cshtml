@@ -1,0 +1,55 @@
+﻿@model SecureVault.Models.Login
+
+@{
+    ViewBag.Title = "Secure Vault - Login";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Login</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    @if (!Html.ViewData.ModelState.IsValid)
+    {
+        foreach (var item in ViewContext.ViewData.ModelState)
+        {
+            if (item.Value.Errors.Any())
+            {
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    <b>@item.Key</b>: @(string.Join("; ", item.Value.Errors.Select(x => x.ErrorMessage)))
+                </div>
+            }
+        }
+        <!--<div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            @Html.ValidationSummary(false, "")
+        </div>-->
+    }
+
+    <form class="form-signin" action="/Account/Login" method="post" style="max-width:300px;margin:auto;">
+        <div>
+            <div>@Html.LabelFor(u => u.Email, new { @class = "sr-only" })</div>
+            <div>
+                <!--@Html.ValidationMessageFor(u => u.Email, null, new { @class = "label label-danger", @style = "border-bottom-left-radius:0;border-bottom-right-radius:0;" })-->
+                @Html.TextBoxFor(u => u.Email, new { @class = "form-control", @type = "email", @placeholder = "Email Address", @style = "border-bottom-left-radius:0;border-bottom-right-radius:0;margin-bottom:-1px;", @required = "", @autofocus = "" })
+            </div>
+            <div>@Html.LabelFor(u => u.Password, new { @class = "sr-only" })</div>
+            <div>
+                <!--@Html.ValidationMessageFor(u => u.Password, null, new { @class = "label label-danger", @style = "border-bottom-left-radius:0;border-bottom-right-radius:0;" })-->
+                @Html.PasswordFor(u => u.Password, new { @class = "form-control", @type = "password", @placeholder = "Password", @style = "border-top-left-radius:0;border-top-right-radius:0;", @required = "" })
+            </div>
+            <!--<div class="checkbox">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>-->
+            <br />
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,71 @@
+﻿@model SecureVault.Models.Users
+@{
+    ViewBag.Title = "Secure Vault - Profile";
+}
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Profile</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+
+    <form class="form-edit" action="/Account/Edit" method="post" style="max-width:300px;margin:auto;">
+        <div>
+            <div>@Html.LabelFor(u => u.FirstName, new { @class = "sr-only" })</div>
+            <div>
+                @Html.ValidationMessageFor(u => u.FirstName, null, new { @class = "label label-danger", @style = "border-bottom-left-radius:0;border-bottom-right-radius:0;" })
+                @Html.TextBoxFor(u => u.FirstName, new { @class = "form-control", @value = Model.FirstName, @placeholder = "First Name", @style = "border-bottom-left-radius:0;border-bottom-right-radius:0;margin-bottom:-1px;", @required = "", @autofocus = "" })
+            </div>
+
+            <div>@Html.LabelFor(u => u.LastName, new { @class = "sr-only" })</div>
+            <div>
+                @Html.ValidationMessageFor(u => u.LastName, null, new { @class = "label label-danger", @style = "border-bottom-left-radius:0;border-bottom-right-radius:0;" })
+                @Html.TextBoxFor(u => u.LastName, new { @class = "form-control", @value = Model.LastName, @placeholder = "Last Name", @required = "", @style = "border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:0;border-bottom-right-radius:0;margin-bottom:-1px;" })
+            </div>
+
+            <div>@Html.LabelFor(u => u.Email, new { @class = "sr-only" })</div>
+            <div>
+                @Html.ValidationMessageFor(u => u.Email, null, new { @class = "label label-danger", @style = "border-bottom-left-radius:0;border-bottom-right-radius:0;" })
+                @Html.TextBoxFor(u => u.Email, new { @class = "form-control", @type = "email", @value = Model.Email, @autocomplete = "new-email", @placeholder = "Email Address", @required = "", @style = "border-top-left-radius:0;border-top-right-radius:0;border-bottom-left-radius:0;border-bottom-right-radius:0;margin-bottom:-1px;" })
+            </div>
+
+            <div>@Html.LabelFor(u => u.Password, new { @class = "sr-only" })</div>
+            <div>
+                @Html.ValidationMessageFor(u => u.Password, null, new { @class = "label label-danger", @style = "border-bottom-left-radius:0;border-bottom-right-radius:0;" })
+                @Html.PasswordFor(u => u.Password, new { @class = "form-control", @type = "password", @value = Model.Password, @autocomplete = "new-password", @placeholder = "Password", @style = "border-top-left-radius:0;border-top-right-radius:0;", @required = "" })
+            </div>
+            <br />
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Confirm</button>
+        </div>
+    </form>
+    <br />
+    <div class="form-edit" style="max-width:300px;margin:auto;">
+        <div>
+            <div><button class="btn btn-lg btn-danger btn-block" data-toggle="modal" data-target="#deleteAccountCheck">Delete Account</button></div>
+        </div>
+</div>
+    <div id="deleteAccountCheck" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Delete Account?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete your account? This is permanent and you will have to re-apply for another account if you decide to use this service later.</p>
+                </div>
+                <div class="modal-footer">
+                    <form class="form-delete-profile" action="/Account/Delete" method="post">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

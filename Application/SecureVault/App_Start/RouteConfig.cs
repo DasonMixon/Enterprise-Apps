@@ -14,6 +14,17 @@ namespace SecureVault
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Vaults",
+                url: "Vaults/{action}/{id}",
+                defaults: new
+                {
+                    controller = "Vault",
+                    action = "Index",
+                    id = UrlParameter.Optional
+                }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
